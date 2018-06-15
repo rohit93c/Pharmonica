@@ -1,0 +1,110 @@
+﻿<Page
+    x:Class="Pharmonica.search"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Pharmonica"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="#333eb4"/>
+        <Border Grid.Row="1" />
+        <Border Grid.Row="2" Background="#333eb4"/>  
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,0" VerticalAlignment="Center">
+            <Image Source="Images/logo.jpg" Height="60" Width="auto" Margin="10,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="0,0,0,0">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="BackButton" Margin="10" Click="Back_Click" Style="{StaticResource NavigationBackButtonNormalStyle}" Width="50" Height="50"/>
+                <TextBlock HorizontalAlignment="Left" Text="ReportName" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                <HyperlinkButton Content="(edit)" Margin="5" NavigateUri="www.facebook.com"/>
+            </StackPanel>
+
+            <StackPanel>
+                <AutoSuggestBox Name="txtAutoSuggestBox" Margin="27,0,0,0" PlaceholderText="Search by disease" TextChanged="AutoSuggestBox_TextChanged" QueryIcon="Find"
+                  QuerySubmitted="AutoSuggestBox_QuerySubmitted" SuggestionChosen="AutoSuggestBox_SuggestionChosen" HorizontalAlignment="Left"
+                  VerticalAlignment="Center" Width="400" IsSuggestionListOpen="False"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"> 
+                <!--<Button Content="Add Characteristics" Click="AddCharacteristics_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="27,20,0,0" />-->
+                <Button Content="Add Characteristics +" Click="ShowAddChara_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="27,20,0,0" Background="#d1428e" Foreground="White"/>
+                <Button Content="Add Characteristics +" Click="ShowAddChara_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="27,20,0,0" Background="#d1428e" Foreground="White"/>
+                <Button Content="Add Characteristics +" Click="ShowAddChara_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="27,20,0,0" Background="#d1428e" Foreground="White"/>
+            </StackPanel>
+
+            <StackPanel Margin="0,0">
+                <Line X1="10" Y1="60" X2="1200" Y2="60" Stroke="Gray" StrokeThickness="2"/>
+                <Grid x:Name="GridPanel" Grid.Row="0" Grid.Column="2"> 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Line Grid.Column="0" Stretch="Fill" StrokeDashArray="4,1" Stroke="Black" X1="0"  Y2="900" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="198,9,202,-9" VerticalAlignment="Stretch"/>
+                    <Line Grid.Column="1" Stretch="Fill" StrokeDashArray="4,1" Stroke="Black" X1="0"  Y2="400" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="198,12,282,-12" VerticalAlignment="Stretch"/>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock HorizontalAlignment="Left" Text="SUGGESTIONS" TextWrapping="Wrap" Foreground="#333eb4" Margin="27, 10"></TextBlock>
+                        <!--<AutoSuggestBox Name="txtSuggestions" Margin="27,0,0,0" PlaceholderText="Filter by..." TextChanged="AutoSuggestBox_TextChanged" QueryIcon="Find"
+                         QuerySubmitted="AutoSuggestBox_QuerySubmitted" SuggestionChosen="AutoSuggestBox_SuggestionChosen" HorizontalAlignment="Left" 
+                         VerticalAlignment="Center" Width="250" IsSuggestionListOpen="False"/>-->
+                        <ListBox x:Name="lstSuggestions" Height="200" Width="250" ItemsSource="{x:Bind fonts}" DisplayMemberPath="Source" HorizontalAlignment="Left" Margin="27,10"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBlock HorizontalAlignment="Left" Text="TRADEMARKS" TextWrapping="Wrap" Foreground="#333eb4" Margin="27,10"></TextBlock>
+                        <ListBox x:Name="lstTrademarks" Height="200" Width="250" ItemsSource="{x:Bind fonts}" DisplayMemberPath="Source" HorizontalAlignment="Left" Margin="27,10"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock HorizontalAlignment="Left" Text="SHORT LISTED" TextWrapping="Wrap" Foreground="#333eb4" Margin="60,10"></TextBlock>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+            
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="2" Margin="0,0,0,0" VerticalAlignment="Center">
+        </StackPanel>
+
+        <Popup VerticalOffset="200" HorizontalOffset="250" x:Name="StandardPopup">
+            <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                BorderThickness="2" Width="300" Height="300" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Add characteristic" FontSize="20" HorizontalAlignment="Center" Margin="55,0,0,0"/>
+                        <Button Content="X" Click="ClosePopupClicked" HorizontalAlignment="Right" Margin="58,0,0,0"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <ComboBox Name="CharListComboxBox" ItemsSource="{x:Bind CharList}" Width="250" Margin="10,30,0,0"></ComboBox>
+                        <Button Content="SELECT" Click="ClosePopupClicked" HorizontalAlignment="Center" Margin="0,10" Background="#d1428e" Foreground="White"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Popup>
+
+        <!--<ContentDialog x:Name="AddCharacteristics" Opened="TermsOfUseContentDialog_Opened">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                <TextBlock Text="Add characteristic" FontSize="20" HorizontalAlignment="Center"/>
+                <Button Content="X" Click="ClosePopupClicked" HorizontalAlignment="Right"/>
+
+                <ComboBox Name="CharListComboxBox" ItemsSource="{x:Bind CharList}" Width="150" Margin="10,0"></ComboBox>
+
+                <Button Content="SELECT" Click="ClosePopupClicked" HorizontalAlignment="Center" Margin="0,10"/>
+            </StackPanel>
+        </ContentDialog>-->
+
+    </Grid>
+
+</Page>
